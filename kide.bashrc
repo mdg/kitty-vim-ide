@@ -25,3 +25,21 @@ kide() {
     # Split original window top to bottom and rename bottom window to "agent-<tab_name>"
     kitty @ launch --location=hsplit --title="agent $tab_name" --keep-focus --cwd=current
 }
+
+# Krun3 layout function - 3 windows on left, 1 on right
+krun3() {
+    # Set tab title
+    kitty @ set-tab-title "run 3"
+
+    # Set layout to splits
+    kitty @ goto-layout splits
+
+    # Split window to the right
+    kitty @ launch --location=vsplit --keep-focus --bias 30
+
+    # Split the left window horizontally (top to bottom)
+    kitty @ launch --location=hsplit --keep-focus --cwd=current --bias 33
+
+    # Split the left window again horizontally to create 3 windows on the left
+    kitty @ launch --location=hsplit --keep-focus --cwd=current --bias 50
+}

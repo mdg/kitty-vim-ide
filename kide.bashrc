@@ -2,19 +2,14 @@
 
 # Kide terminal setup function
 kide() {
-    kitty @ set-tab-title "$1"
-
-    # Rename current window to "sh"
+    # Set tab title to first parameter if provided
+    if [ -n "$1" ]; then
+        kitty @ set-tab-title "$1"
+    fi
 
     # Split current window side by side and rename new window to "vim"
-    kitty @ launch --location=vsplit --title="vim"
-
-    # Focus back on original window (left side)
-    kitty @ focus-tab --match title:sh
+    kitty @ launch --location=hsplit --title="vim" --keep-focus
 
     # Split original window top to bottom and rename bottom window to "agent"
-    kitty @ launch --location=hsplit --title="agent"
-
-    # Focus back on the top-left window (original "sh" window)
-    kitty @ focus-tab --match title:sh
+    kitty @ launch --location=vsplit --title="agent" --keep-focus
 }

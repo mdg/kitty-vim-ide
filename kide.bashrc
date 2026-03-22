@@ -7,6 +7,9 @@ kide() {
         kitty @ set-tab-title "$1"
     fi
 
+    # Set current window title to "sh"
+    kitty @ set-window-title "sh"
+
     # Split current window side by side and rename new window to "vim"
     kitty @ launch --location=hsplit --title="vim" --keep-focus
 

@@ -2,17 +2,23 @@
 
 # Kide terminal setup function
 kide() {
-    # Set tab title to first parameter if provided
-    if [ -n "$1" ]; then
-        kitty @ set-tab-title "$1"
+    # Check if tab name parameter is provided
+    if [ -z "$1" ]; then
+        echo "Error: Tab name is required. Usage: kide <tab_name>"
+        return 1
     fi
 
-    # Set current window title to "sh"
-    kitty @ set-window-title "sh"
+    local tab_name="$1"
 
-    # Split current window side by side and rename new window to "vim"
-    kitty @ launch --location=hsplit --title="vim" --keep-focus
+    # Set tab title
+    kitty @ set-tab-title "$tab_name"
 
-    # Split original window top to bottom and rename bottom window to "agent"
-    kitty @ launch --location=vsplit --title="agent" --keep-focus
+    # Set current window title to "sh-<tab_name>"
+    kitty @ set-window-title "sh $tab_name"
+
+    # Split current window side by side and rename new window to "vim-<tab_name>"
+    kitty @ launch --location=hsplit --title="vim $tab_name" --keep-focus
+
+    # Split original window top to bottom and rename bottom window to "agent-<tab_name>"
+    kitty @ launch --location=vsplit --title="agent $tab_name" --keep-focus
 }
